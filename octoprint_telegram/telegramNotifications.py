@@ -201,6 +201,9 @@ class TMSG():
 	# Helper to determine if notification will be send on gcode ZChange event
 	# depends on notification time and notification height
 	def is_notification_necessary(self, new_z, old_z):
+		# For OctoLapse compatibility, if new_z < 0, do not send notofocation.
+		if new_z < 0:
+			return False;
 		timediff = self.main._settings.get_int(['notification_time'])
 		if timediff and timediff > 0:
 			# check the timediff
